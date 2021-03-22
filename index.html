@@ -143,7 +143,6 @@
         </div>
     </div>
 </div>
-
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
@@ -156,7 +155,7 @@
 <script>
     $(document).ready(function () {
         let user_container = $('.user-lists');
-        var users = [];
+        let users = [];
         firebase.initializeApp({
             apiKey: "YOUR API KEY",
             authDomain: "YOUR AUTH DOMAIN,
@@ -174,12 +173,9 @@
             });
             add_user(request_data)
         })
-
         $('#update-user-id').change(function (event) {
-            console.log(event.target.value);
             update_usere_info_on_user_change(event.target.value);
-        })
-
+        });
         $("#btn-update-user").on("click", function (event) {
             event.preventDefault();
             let user_data = $('.update-user-form').serializeArray();
@@ -189,8 +185,7 @@
             });
             update_user(request_data)
         });
-
-        var db = firebase.firestore();
+        let db = firebase.firestore();
         db.collection("users")
             .onSnapshot((snapshot) => {
                 user_container.append('');
@@ -237,7 +232,6 @@
             });
             user_container.append(table_data);
         }
-
         function update_user_select_list () {
             let table_data = `<option value=''>Select User</option>`;
             let container = $('.user-select-list');
@@ -247,7 +241,6 @@
             });
             container.html(table_data)
         }
-
         function add_user (data) {
             db.collection("users").add(data).then(() => {
                 swal({
@@ -264,7 +257,6 @@
                 });
             });
         }
-
         function update_user (data) {
             let user_id = data.id;
             if(!user_id) {
@@ -290,7 +282,6 @@
                 });
             });
         }
-
         function delete_user (user_id) {
             if(!user_id) {
                 return swal({
@@ -313,7 +304,6 @@
                 });
             });
         }
-
         function update_usere_info_on_user_change (user_id) {
             let user_data = users.find(x => x.id === user_id)
             if(user_data) {
@@ -324,6 +314,5 @@
         }
     });
 </script>
-
 </body>
 </html>
